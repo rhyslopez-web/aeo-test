@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 interface Suggestion {
   title: string;
@@ -13,10 +13,11 @@ interface Results {
 }
 
 export default function Home() {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Results | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [meow, setMeow] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,23 +26,23 @@ export default function Home() {
     setResults(null);
 
     try {
-      const response = await fetch('/api/analyze', {
-        method: 'POST',
+      const response = await fetch("/api/analyze", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ url }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Analysis failed');
+        throw new Error(errorData.error || "Analysis failed");
       }
 
       const data: Results = await response.json();
       setResults(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -55,7 +56,8 @@ export default function Home() {
             AEO Improvement Checker Test
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            Enter your business website URL to get personalized suggestions for improving your Answer Engine Optimization (AEO) score.
+            Enter your business website URL to get personalized suggestions for
+            improving your Answer Engine Optimization (AEO) score.
           </p>
         </div>
 
@@ -74,7 +76,7 @@ export default function Home() {
               disabled={loading}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {loading ? 'Analyzing...' : 'Analyze'}
+              {loading ? "Analyzing..." : "Analyze"}
             </button>
           </div>
         </form>
@@ -105,7 +107,10 @@ export default function Home() {
               </h3>
               <div className="space-y-4">
                 {results.suggestions.map((suggestion, index) => (
-                  <details key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg">
+                  <details
+                    key={index}
+                    className="border border-gray-200 dark:border-gray-600 rounded-lg"
+                  >
                     <summary className="cursor-pointer px-4 py-3 font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
                       {index + 1}. {suggestion.title}
                     </summary>
