@@ -52,7 +52,7 @@ export default function Home() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            AEO Improvement Checker
+            AEO Improvement Checker Test
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             Enter your business website URL to get personalized suggestions for improving your Answer Engine Optimization (AEO) score.
